@@ -1,23 +1,23 @@
 {
   "files": {
     "main.css": "/ekos-barber/static/css/main.5d074ffc.chunk.css",
-    "main.js": "/ekos-barber/static/js/main.77629039.chunk.js",
-    "main.js.map": "/ekos-barber/static/js/main.77629039.chunk.js.map",
+    "main.js": "/ekos-barber/static/js/main.b0526bd1.chunk.js",
+    "main.js.map": "/ekos-barber/static/js/main.b0526bd1.chunk.js.map",
     "runtime-main.js": "/ekos-barber/static/js/runtime-main.4ea443c5.js",
     "runtime-main.js.map": "/ekos-barber/static/js/runtime-main.4ea443c5.js.map",
     "static/css/2.e4c3727d.chunk.css": "/ekos-barber/static/css/2.e4c3727d.chunk.css",
-    "static/js/2.9cca74cb.chunk.js": "/ekos-barber/static/js/2.9cca74cb.chunk.js",
-    "static/js/2.9cca74cb.chunk.js.map": "/ekos-barber/static/js/2.9cca74cb.chunk.js.map",
+    "static/js/2.518ada50.chunk.js": "/ekos-barber/static/js/2.518ada50.chunk.js",
+    "static/js/2.518ada50.chunk.js.map": "/ekos-barber/static/js/2.518ada50.chunk.js.map",
     "index.html": "/ekos-barber/index.html",
     "static/css/2.e4c3727d.chunk.css.map": "/ekos-barber/static/css/2.e4c3727d.chunk.css.map",
     "static/css/main.5d074ffc.chunk.css.map": "/ekos-barber/static/css/main.5d074ffc.chunk.css.map",
-    "static/js/2.9cca74cb.chunk.js.LICENSE.txt": "/ekos-barber/static/js/2.9cca74cb.chunk.js.LICENSE.txt"
+    "static/js/2.518ada50.chunk.js.LICENSE.txt": "/ekos-barber/static/js/2.518ada50.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.4ea443c5.js",
     "static/css/2.e4c3727d.chunk.css",
-    "static/js/2.9cca74cb.chunk.js",
+    "static/js/2.518ada50.chunk.js",
     "static/css/main.5d074ffc.chunk.css",
-    "static/js/main.77629039.chunk.js"
+    "static/js/main.b0526bd1.chunk.js"
   ]
 }
