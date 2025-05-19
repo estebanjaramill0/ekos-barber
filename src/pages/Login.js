@@ -1,112 +1,71 @@
-import React, { Component } from "react";
-import "../css/Login.css";
-import "bootstrap/dist/css/bootstrap.min.css";
+import React, { useState } from "react";
 import axios from "axios";
-import md5 from "md5";
-import Cookies from "universal-cookie";
-/*
-const baseUrl = "connect	Sys@//localhost:1521/xe/usuario";
-*/
-const baseUrl = "connect Sys@//localhost/phpmyadmin/test2/login";
+import { useHistory } from "react-router-dom"; // Para redirigir sin recargar
+import "../css/Login.css"; // Importamos los estilos CSS
 
-const cookies = new Cookies();
+const Login = () => {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const [message, setMessage] = useState("");
+  const history = useHistory(); // Redirección sin actualizar el DOM
 
-class Login extends Component {
-  state = {
-    form: {
-      username: "",
-      password: ""
-    }
-  };
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    setError("");
+    setMessage("");
 
-  handleChange = async (e) => {
-    await this.setState({
-      form: {
-        ...this.state.form,
-        [e.target.name]: e.target.value
-      }
-    });
-  };
-
-  iniciarSesion = async () => {
-    await axios
-      .get(baseUrl, {
-        params: {
-          username: this.state.form.username,
-          password: md5(this.state.form.password)
-        }
-      })
-      .then((response) => {
-        return response.data;
-      })
-      .then((response) => {
-        if (response.length > 0) {
-          var respuesta = response[0];
-          cookies.set("id", respuesta.id, { path: "/" });
-          cookies.set("apellido_paterno", respuesta.apellido_paterno, {
-            path: "/"
-          });
-          cookies.set("apellido_materno", respuesta.apellido_materno, {
-            path: "/"
-          });
-          cookies.set("nombre", respuesta.nombre, { path: "/" });
-          cookies.set("username", respuesta.username, { path: "/" });
-          alert(`Bienvenido ${respuesta.nombre} ${respuesta.apellido_paterno}`);
-          window.location.href = "./menu";
-        } else {
-          alert("El usuario o la contraseña no son correctos");
-        }
-      })
-      .catch((error) => {
-        console.log(error);
+    try {
+      const response = await axios.post("http://localhost:5000/login", {
+        username,
+        password,
       });
+
+      if (response.data.token) {
+        localStorage.setItem("token", response.data.token); // Guarda el token
+        localStorage.setItem("username", response.data.username); // Guarda el nombre del usuario
+        localStorage.setItem("usuario_id", response.data.usuario_id); // Guarda el ID del usuario
+
+        setMessage("Inicio de sesión exitoso");
+        history.push("/"); // Redirige a la página Home.js sin recargar
+      }
+    } catch (error) {
+      setError(error.response?.data?.error || "Error al iniciar sesión");
+    }
   };
 
-  componentDidMount() {
-    if (cookies.get("username")) {
-      window.location.href = "./menu";
-    }
-  }
-
-  render() {
-    return (
-      <div className="containerPrincipal">
-        <div className="containerSecundario">
-          <div className="form-group">
-            <h4 className="titulo_Login">Login</h4>
-            <br />
-            <input
-              type="text"
-              className="form-control"
-              name="username"
-              onChange={this.handleChange}
-            />
-            <br />
-            <label className="titulo_Login">Contraseña: </label>
-            <br />
-            <input
-              type="password"
-              className="form-control"
-              name="password"
-              onChange={this.handleChange}
-            />
-            <br />
-            <button
-              className="btn_btn-primary"
-              onClick={() => this.iniciarSesion()}
-            >
-              Iniciar Sesión
-            </button>
-            <p>
-              <a className="Titulo-Login" href="/Registro">
-                ¿No tengo Cuenta?
-              </a>
-            </p>
-          </div>
-        </div>
+  return (
+    <div className="containerPrincipal"> 
+      <div className="containerSecundario">
+        <h2 className="titulo_Login">Login</h2> 
+        {error && <p style={{ color: "red" }}>{error}</p>}
+        {message && <p style={{ color: "green" }}>{message}</p>}
+        <form onSubmit={handleLogin}>
+          <input
+            type="text"
+            className="form-control" 
+            placeholder="Username"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+            required
+          />
+          <br /> <br />
+          
+          <input
+            type="password"
+            className="form-control" 
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
+          
+          <br /> <br />
+          <button className="btn_btn-primary" type="submit">Iniciar sesión</button> {/* Estilo de botón */}
+        </form>
       </div>
-    );
-  }
-}
+    </div>
+  );
+};
 
 export default Login;

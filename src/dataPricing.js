@@ -1,4 +1,4 @@
-/* 
+/*
 export const dataPricing = [
   {
     priceType: "Gratis",
@@ -28,4 +28,5 @@ export const dataPricing = [
     buttonInfo: "Conctact us"
   }
 ];
+
 */
