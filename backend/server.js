@@ -12,10 +12,11 @@ app.use(cors());
 
 // Conexión a la base de datos 'usuarios'
 const db = mysql.createConnection({
-  host: "localhost",
-  user: "root",
-  password: "",
-  database: "usuarios"
+  host: "sql5.freesqldatabase.com",
+  user: "sql5781635",
+  password: "ygp5jvTyGQ",
+  database: "sql5781635",
+  port: 3306
 });
 
 db.connect(err => {
