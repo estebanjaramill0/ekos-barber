@@ -12,11 +12,11 @@ app.use(cors());
 
 // Conexión a la base de datos 'usuarios'
 const db = mysql.createConnection({
-  host: "sql5.freesqldatabase.com",
-  user: "sql5781635",
-  password: "ygp5jvTyGQ",
-  database: "sql5781635",
-  port: 3306
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASS,
+  database: process.env.DB_NAME,
+  port: process.env.DB_PORT || 3306
 });
 
 db.connect(err => {
@@ -288,6 +288,7 @@ app.get("/account", verificarToken, (req, res) => {
 
 
 // Iniciar el servidor
-app.listen(5000, () => {
-  console.log("Servidor corriendo en el puerto 5000");
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => {
+  console.log(`Servidor corriendo en el puerto ${PORT}`);
 });
