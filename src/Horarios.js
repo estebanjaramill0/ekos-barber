@@ -6,6 +6,8 @@ import "react-datepicker/dist/react-datepicker.css";
 import "react-time-picker/dist/TimePicker.css";
 import SeleccionarFechaHora from "./SeleccionarFechaHora";
 
+const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5000";
+
 export default function Horarios() {
   const [horarios, setHorarios] = useState([]);
   const [error, setError] = useState("");
@@ -23,7 +25,7 @@ export default function Horarios() {
 
     const fetchHorarios = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/get_horarios/${barberoId}`);
+        const response = await axios.get(`${API_URL}/get_horarios/${barberoId}`);
         if (response.data && Array.isArray(response.data)) {
           setHorarios(response.data);
         } else {

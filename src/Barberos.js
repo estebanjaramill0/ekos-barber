@@ -4,6 +4,8 @@ import "./styles.css";
 import { useLocation, useHistory } from "react-router-dom";
 import { Button } from "reactstrap";
 
+const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5000";
+
 export default function Barberos() {
   const [barberos, setBarberos] = useState([]);
   const location = useLocation();
@@ -13,7 +15,7 @@ export default function Barberos() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:5000/get_barberos")
+      .get(`${API_URL}/get_barberos`)
       .then((response) => {
         setBarberos(response.data);
       })

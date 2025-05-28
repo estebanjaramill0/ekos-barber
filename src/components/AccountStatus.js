@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 
+const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5000";
+
 export default function AccountStatus() {
   const [userInfo, setUserInfo] = useState(null);
   const [reservas, setReservas] = useState([]);
@@ -18,7 +20,7 @@ export default function AccountStatus() {
         return;
       }
       try {
-        const response = await axios.get("http://localhost:5000/account", {
+        const response = await axios.get(`${API_URL}/account`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         if (response.data && response.data.user) {
