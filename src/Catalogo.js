@@ -3,6 +3,8 @@ import axios from "axios";
 import { useHistory } from "react-router-dom";
 import "./styles.css";
 
+const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5000";
+
 export default function Catalogo() {
   const [cortes, setCortes] = useState([]);
   const [error, setError] = useState("");
@@ -12,7 +14,7 @@ export default function Catalogo() {
     const fetchCortes = async () => {
       try {
         const token = localStorage.getItem("token"); // ✅ Obtén el token
-        const response = await axios.get("http://localhost:5000/get_cortes", {
+                const response = await axios.get(`${API_URL}/get_cortes`, {
           headers: {
             Authorization: token // ✅ Envíalo en la cabecera
           }
