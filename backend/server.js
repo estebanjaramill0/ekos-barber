@@ -162,10 +162,6 @@ app.get("/guardar_reserva", verificarToken, (req, res) => {
 
 
 
-
-
-
-
 //PANEL DE ADMINISTRACION
 // Ruta para obtener datos de una tabla específica
 
@@ -244,6 +240,50 @@ app.delete("/admin/:tabla/:id", verificarToken, (req, res) => {
     res.json({ message: "Registro eliminado exitosamente" });
   });
 });
+
+// Ruta para obtener información del usuario 
+
+// ...existing code...
+
+app.get("/account", verificarToken, (req, res) => {
+  console.log("Usuario autenticado:", req.user); // <-- Agrega esto
+  const usuario_id = req.user.usuario_id;
+ 
+  // Obtener información del usuario
+  const sqlUser = "SELECT id, nombre, email, telefono FROM usuarios WHERE id = ?";
+  db.query(sqlUser, [usuario_id], (err, userResults) => {
+    if (err || userResults.length === 0) {
+      return res.status(500).json({ error: "Error al obtener información del usuario" });
+    }
+    const user = userResults[0];
+
+    // Obtener reservas del usuario
+    const sqlReservas = `
+      SELECT 
+        reservas.id,
+        reservas.fecha_cita,
+        reservas.hora_cita,
+        reservas.estado,
+        barberos.nombre AS barbero,
+        cortes.nombre AS corte
+      FROM reservas
+      JOIN barberos ON reservas.barbero_id = barberos.id
+      JOIN cortes ON reservas.corte_id = cortes.id
+      WHERE reservas.usuario_id = ?
+      ORDER BY reservas.fecha_cita DESC, reservas.hora_cita DESC
+    `;
+    db.query(sqlReservas, [usuario_id], (err, reservasResults) => {
+      if (err) {
+        return res.status(500).json({ error: "Error al obtener reservas" });
+      }
+      res.json({ user, reservas: reservasResults });
+    });
+  });
+});
+
+// ...existing code...
+
+
 
 
 // Iniciar el servidor

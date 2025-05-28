@@ -18,7 +18,7 @@ export default function Home() {
   return (
     <div>
     <div style={{ display: "flex", justifyContent: "flex-end", alignItems: "center", margin: "10px" }}>
-      
+       {username !== "Invitado" && (
       <a
           href="#"
           onClick={() => history.push("/AccountStatus")}
@@ -26,9 +26,9 @@ export default function Home() {
         >
           Estado de cuenta, {username}!
         </a>
+      )}
+
         {username !== "Invitado" && (
-
-
           <button
             onClick={handleLogout}
             style={{
@@ -74,12 +74,12 @@ export default function Home() {
           <li>
             <a className="a">Redes sociales</a>
             <div className="submenu">
-              <a className="a" href="mailto:latinbarberofficial@gmail.com">
+              <a className="a" href="mailto:ekosbarber@gmail.com">
                 Gmail
               </a>
               <a
                 className="a"
-                href="https://www.instagram.com/latinbarberofficial/"
+                href="https://www.instagram.com/ekosbarber/"
               >
                 Instagram
               </a>
