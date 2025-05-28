@@ -17,12 +17,12 @@ export default function Home() {
 
   return (
     <div>
-    <div style={{ display: "flex", justifyContent: "flex-end", alignItems: "center", margin: "10px" }}>
+    <div style={{ display: "flex", justifyContent: "flex-end", alignItems: "center", margin: "10px"}}>
        {username !== "Invitado" && (
       <a
           href="#"
           onClick={() => history.push("/AccountStatus")}
-          style={{ cursor: "pointer", textDecoration: "underline" }}
+          style={{ cursor: "pointer", textDecoration: "underline", color: "black" }}
         >
           Estado de cuenta, {username}!
         </a>
