@@ -3,6 +3,8 @@ import axios from "axios";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
+const API_URL = process.env.REACT_APP_API_URL || "http://localhost:5000";
+
 const SeleccionarFechaHora = () => {
   const [fecha, setFecha] = useState(null);
   const [hora, setHora] = useState("");
@@ -18,7 +20,7 @@ const SeleccionarFechaHora = () => {
   useEffect(() => {
     if (barberoId) {
       axios
-        .get(`http://localhost:5000/get_horarios/${barberoId}`)
+        .get(`${API_URL}/get_horarios/${barberoId}`)
         .then((response) => {
           setHorariosBarbero(response.data);
         })
@@ -86,7 +88,7 @@ const SeleccionarFechaHora = () => {
 
     try {
       const response = await axios.get(
-        `http://localhost:5000/guardar_reserva?usuario_id=${usuarioId}&barbero_id=${barberoId}&corte_id=${corteId}&fecha_cita=${fecha.toISOString().split("T")[0]}&hora_cita=${hora}&estado=pendiente`,
+        `${API_URL}/guardar_reserva?usuario_id=${usuarioId}&barbero_id=${barberoId}&corte_id=${corteId}&fecha_cita=${fecha.toISOString().split("T")[0]}&hora_cita=${hora}&estado=pendiente`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
